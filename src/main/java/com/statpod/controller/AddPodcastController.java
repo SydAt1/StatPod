@@ -31,14 +31,7 @@ public class AddPodcastController extends HttpServlet {
     private final GenreService genreService = new GenreService();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    	
-//    	if (!SessionUtil.isAdminUser(req)) {
-//            req.getRequestDispatcher("/WEB-INF/pages/common/not_authorized.jsp").forward(req, resp);
-//            return;
-//        }
-    	
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {    	
         try {
             List<GenreModel> genres = genreService.getAllGenres();
             req.setAttribute("genres", genres);

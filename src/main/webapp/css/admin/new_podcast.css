@@ -1,0 +1,187 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('../../images/background_img.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    margin: 40px 0;
+}
+
+.podcast-box {
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    width: 72px;
+    height: 91px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.subtitle {
+    color: #a0a0a0;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 4px;
+    border: 1px solid #878787;
+    background-color: #121212;
+    color: #fff;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+select option {
+    background-color: #121212;
+    color: #fff;
+}
+
+.file-upload {
+    margin-top: 24px;
+}
+
+.file-upload label {
+    display: block;
+    margin-bottom: 8px;
+    color: #a0a0a0;
+    font-size: 14px;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 8px 0;
+    color: #a0a0a0;
+    font-size: 14px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #2a2a2a;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 16px;
+}
+
+.podcast-button,
+input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    border-radius: 500px;
+    border: none;
+    background-color: #1ed760;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.podcast-button:hover,
+input[type="submit"]:hover {
+    transform: scale(1.03);
+    background-color: #1fdf64;
+}
+
+.success-message {
+    color: #1ed760;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(30, 215, 96, 0.1);
+    border-radius: 4px;
+    width: 100%;
+}
+
+.error-message {
+    color: #f15e6c;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(241, 94, 108, 0.1);
+    border-radius: 4px;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .main-content {
+        padding: 10px;
+    }
+    
+    .podcast-box {
+        padding: 30px 20px;
+    }
+}

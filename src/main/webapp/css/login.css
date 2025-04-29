@@ -1,0 +1,131 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('../images/background_img.png');
+    background-size: cover;              /* Fill screen */
+    background-position: center center;  /* Center the image */
+    background-repeat: no-repeat;        /* No repeat */
+    background-attachment: fixed;        /* Keeps it in place on scroll */
+    min-height: 100vh;
+    color: #fff;
+}
+
+
+
+.page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    margin: 40px 0;
+}
+
+.login-box {
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    width: 72px;
+    height: 91px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #fff;
+    text-align: center;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    border-radius: 4px;
+    border: 1px solid #878787;
+    background-color: #121212;
+    color: #fff;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+.login-button,
+input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    border-radius: 500px;
+    border: none;
+    background-color: #1ed760;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.login-button:hover,
+input[type="submit"]:hover {
+    transform: scale(1.03);
+    background-color: #1fdf64;
+}
+
+.signup-text {
+    margin-top: 20px;
+    color: #a0a0a0;
+    font-size: 14px;
+}
+
+.signup-text a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #f15e6c;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.footer-text {
+    text-align: center;
+    font-size: 12px;
+    color: #a0a0a0;
+    margin-top: 40px;
+}
+
+.footer-text a {
+    color: #a0a0a0;
+    text-decoration: underline;
+}

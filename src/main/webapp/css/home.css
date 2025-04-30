@@ -126,6 +126,17 @@ body {
     margin-top: 50px;
 }
 
+.recommendation-card a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.recommendation-card a:hover {
+    text-decoration: none;
+    color: #10b981; /* Optional: color on hover */
+}
+
 .recommendation-row {
     display: flex;
     overflow-x: auto;

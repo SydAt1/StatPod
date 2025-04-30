@@ -8,13 +8,17 @@ import java.io.Serializable;
 public class UserPodcastsModel implements Serializable {
     private String username;
     private int podcastId;
+    private int play;
+    private boolean liked;
 
     public UserPodcastsModel() {
     }
 
-    public UserPodcastsModel(String username, int podcastId) {
+    public UserPodcastsModel(String username, int podcastId, int play, boolean liked) {
         this.username = username;
         this.podcastId = podcastId;
+        this.play = play;
+        this.liked = liked;
     }
 
     public String getUsername() {
@@ -33,11 +37,29 @@ public class UserPodcastsModel implements Serializable {
         this.podcastId = podcastId;
     }
 
+    public int getPlay() {
+        return play;
+    }
+
+    public void setPlay(int play) {
+        this.play = play;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
     @Override
     public String toString() {
-        return "UserPodcastModel{" +
+        return "UserPodcastsModel{" +
                 "username='" + username + '\'' +
                 ", podcastId=" + podcastId +
+                ", play=" + play +
+                ", liked=" + liked +
                 '}';
     }
 }

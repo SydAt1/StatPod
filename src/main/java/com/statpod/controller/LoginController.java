@@ -98,7 +98,7 @@ public class LoginController extends HttpServlet {
         System.out.println("Session ID: " + session.getId());
         System.out.println("isLoggedIn: " + session.getAttribute("isLoggedIn"));
         System.out.println("username: " + session.getAttribute("username"));
-        System.out.println("isAdmin: " + session.getAttribute("isAdmin")); // Debugging
+        System.out.println("isAdmin: " + session.getAttribute("isAdmin")); 
 
         SessionUtil.setSessionTimeout(req, 1800);
 
@@ -115,7 +115,7 @@ public class LoginController extends HttpServlet {
         if ("admin".equals(username)) {
             resp.sendRedirect(req.getContextPath() + "/admin/dashboard");
         } else {
-            resp.sendRedirect(req.getContextPath() + "/"); // Redirect to home page
+            resp.sendRedirect(req.getContextPath() + "/"); 
         }
     }
 

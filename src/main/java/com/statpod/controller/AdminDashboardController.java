@@ -20,13 +20,7 @@ public class AdminDashboardController extends HttpServlet {
     private static final long serialVersionUID = 1L;
        
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       // Admin check
-//    	if (!SessionUtil.isAdminUser(request)) {
-//            request.getRequestDispatcher("/WEB-INF/pages/not_authorized.jsp").forward(request, response);
-//            return;
-//        }
-    	
-        
+ 
         try {
             // Get dashboard data
             AdminDashboardDao dashboardDao = new AdminDashboardDao();

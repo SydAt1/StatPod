@@ -6,9 +6,6 @@ import com.statpod.model.PodcastUserModel;
 import com.statpod.service.RegisterService;
 import com.statpod.model.GenreModel;
 import com.statpod.service.GenreService;
-import com.statpod.util.ImageUtil;
-import com.statpod.util.PasswordUtil;
-import com.statpod.util.ValidationUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -18,15 +15,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
+/**
+ * RegisterController is a servlet that handles user registration for the StatPod application.
+ * It provides functionality for displaying the registration form and processing 
+ * the registration request by delegating business logic to the RegisterService.
+ * 
+ * This servlet is mapped to the URL pattern "/register" and supports multipart form data
+ * for handling file uploads, specifically user profile images.
+ */
 @WebServlet(urlPatterns = {"/register"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
 public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private final ImageUtil imageUtil = new ImageUtil();
     private final RegisterService registerService = new RegisterService();
     private final GenreService genreService = new GenreService();
 
+    /**
+     * Handles GET requests to display the registration form.
+     * Retrieves a list of available podcast genres and sets it as a request attribute.
+     * Forwards the request to the registration JSP page.
+     *
+     * @param req the HttpServletRequest object that contains the request the client made
+     * @param resp the HttpServletResponse object that contains the response the servlet returns
+     * @throws ServletException if the request for the GET could not be handled
+     * @throws IOException if an input or output error is detected when the servlet handles the GET request
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -38,26 +52,50 @@ public class RegisterController extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(req, resp);
     }
 
+    /**
+     * Handles POST requests to process the registration form submission.
+     * Delegates validation, user creation, and image handling to the RegisterService.
+     * Handles success or error responses accordingly.
+     *
+     * @param req the HttpServletRequest object that contains the request the client made
+     * @param resp the HttpServletResponse object that contains the response the servlet returns
+     * @throws ServletException if the request for the POST could not be handled
+     * @throws IOException if an input or output error is detected when the servlet handles the POST request
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String validationMessage = validateRegistrationForm(req);
+            // Extract form parameters
+            String username = req.getParameter("username");
+            String email = req.getParameter("email");
+            String password = req.getParameter("password");
+            String confirmPassword = req.getParameter("confirmPassword");
+            String displayName = req.getParameter("displayName");
+            String favoriteGenre = req.getParameter("favoriteGenre");
+            Part image = req.getPart("imageUrl");
+            
+            // Validate the registration form
+            String validationMessage = registerService.validateRegistrationForm(
+                username, email, password, confirmPassword, image, favoriteGenre);
+                
             if (validationMessage != null) {
                 handleError(req, resp, validationMessage);
                 return;
             }
 
-            PodcastUserModel userModel = extractUserModel(req);
+            // Create user model
+            PodcastUserModel userModel = registerService.createUserModel(
+                username, email, displayName, favoriteGenre, password, image);
             
             // Handle image upload only if an image was provided
-            Part image = req.getPart("imageUrl");
             if (image != null && image.getSize() > 0) {
-                if (!uploadImage(req)) {
+                if (!registerService.uploadImage(image, req.getServletContext().getRealPath("/"))) {
                     handleError(req, resp, "Could not upload the image. Please try again later!");
                     return;
                 }
             }
 
+            // Add user to database
             Boolean isAdded = registerService.addUser(userModel);
             
             if (isAdded == null) {
@@ -73,83 +111,31 @@ public class RegisterController extends HttpServlet {
         }
     }
 
-    private String validateRegistrationForm(HttpServletRequest req) throws IOException, ServletException {
-        String username = req.getParameter("username");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
-        String displayName = req.getParameter("displayName");
-        String favoriteGenre = req.getParameter("favoriteGenre");
-
-        if (ValidationUtil.isNullOrEmpty(username)) return "Username is required.";
-        if (ValidationUtil.isNullOrEmpty(email)) return "Email is required.";
-        if (ValidationUtil.isNullOrEmpty(password)) return "Password is required.";
-        if (ValidationUtil.isNullOrEmpty(confirmPassword)) return "Please confirm your password.";
-        if (!ValidationUtil.isValidEmail(email)) return "Invalid email format.";
-        if (!ValidationUtil.isValidPassword(password)) return "Password must be at least 8 characters long, with 1 uppercase letter, 1 number, and 1 symbol.";
-        if (!ValidationUtil.doPasswordsMatch(password, confirmPassword)) return "Passwords do not match.";
-
-        // Only validate image if one was uploaded
-        Part image = req.getPart("imageUrl");
-        if (image != null && image.getSize() > 0 && !ValidationUtil.isValidImageExtension(image)) {
-            return "Invalid image format. Only jpg, jpeg, png, and gif are allowed.";
-        }
-
-        // Validate genre ID if provided
-        if (favoriteGenre != null && !favoriteGenre.isEmpty()) {
-            try {
-                int genreId = Integer.parseInt(favoriteGenre);
-                if (!registerService.genreExists(genreId)) {
-                    return "Selected genre does not exist.";
-                }
-            } catch (NumberFormatException e) {
-                return "Invalid genre selection.";
-            }
-        }
-
-        return null;
-    }
-
-    private PodcastUserModel extractUserModel(HttpServletRequest req) throws Exception {
-        String username = req.getParameter("username");
-        String email = req.getParameter("email");
-        String displayName = req.getParameter("displayName");
-        String favoriteGenreStr = req.getParameter("favoriteGenre");
-        String password = PasswordUtil.encrypt(username, req.getParameter("password"));
-        
-        String imageUrl = null;
-        Part image = req.getPart("imageUrl");
-        if (image != null && image.getSize() > 0) {
-            imageUrl = imageUtil.getImageNameFromPart(image);
-        }
-
-        // Convert favoriteGenre from String to Integer
-        Integer favoriteGenre = null;
-        if (favoriteGenreStr != null && !favoriteGenreStr.isEmpty()) {
-            try {
-                favoriteGenre = Integer.parseInt(favoriteGenreStr);
-            } catch (NumberFormatException e) {
-                // Invalid genre ID format, leave as null
-            }
-        }
-
-        return new PodcastUserModel(username, password, email, displayName, favoriteGenre, imageUrl);
-    }
-
-    private boolean uploadImage(HttpServletRequest req) throws IOException, ServletException {
-        Part image = req.getPart("imageUrl");
-        if (image == null || image.getSize() == 0) {
-            return true; // No image to upload is not an error
-        }
-        return imageUtil.uploadImage(image, req.getServletContext().getRealPath("/"), "users");
-    }
-
+    /**
+     * Handles successful registration by setting a success message and forwarding to the specified page.
+     * 
+     * @param req the HttpServletRequest object
+     * @param resp the HttpServletResponse object
+     * @param message the success message to display
+     * @param redirectPage the page to forward to
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
             throws ServletException, IOException {
         req.setAttribute("success", message);
         req.getRequestDispatcher(redirectPage).forward(req, resp);
     }
 
+    /**
+     * Handles registration errors by setting appropriate attributes and forwarding back to the register page.
+     * 
+     * @param req the HttpServletRequest object
+     * @param resp the HttpServletResponse object
+     * @param message the error message to display
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
             throws ServletException, IOException {
         req.setAttribute("error", message);

@@ -40,7 +40,7 @@ public class ProfileController extends HttpServlet {
         String username = SessionUtil.getCurrentUser(request);
 
         try (Connection conn = DbConfig.getDbConnection()) {
-            UserDao userDao = new UserDao(conn);
+            UserDao userDao = new UserDao(conn); 
             GenreDao genreDao = new GenreDao(conn);
 
             PodcastUserModel user = userDao.fetchUserByUsername(username);

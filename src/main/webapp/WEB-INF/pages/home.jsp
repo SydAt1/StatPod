@@ -41,14 +41,16 @@
                         reason = "You might like this";
                     }
                 %>
-                <div class="recommendation-card">
-                    <div class="recommendation-image" style="background-image: url('images/podcasts/<%= pod.getPodImg() %>');"></div>
-                    <div class="recommendation-info">
-                        <h3><%= pod.getPodcastName() %></h3>
-                        <p><%= pod.getHostName() %></p>
-                        <div class="why-recommended"><%= reason %></div>
-                    </div>
-                </div>
+	                <div class="recommendation-card">
+					    <a href="${pageContext.request.contextPath}/podcast?id=<%= pod.getPodcastId() %>">
+					        <div class="recommendation-image" style="background-image: url('images/podcasts/<%= pod.getPodImg() %>');"></div>
+					        <div class="recommendation-info">
+					            <h3><%= pod.getPodcastName() %></h3>
+					            <p><%= pod.getHostName() %></p>
+					            <div class="why-recommended"><%= reason %></div>
+					        </div>
+					    </a>
+					</div>
                 <% } %>
             </div>
         </section>
@@ -77,12 +79,14 @@
 		        String genreName = podcastDAO.getGenreName(pod.getGenreId());
 		    %>
 		    <div class="podcast-card" data-genre-id="<%= pod.getGenreId() %>">
-		        <div class="podcast-image" style="background-image: url('images/podcasts/<%= pod.getPodImg() %>');"></div>
-		        <div class="podcast-info">
-		            <h3><%= pod.getPodcastName() %></h3>
-		            <p><%= pod.getHostName() %></p>
-		        </div>
-		    </div>
+			    <a href="${pageContext.request.contextPath}/podcast?id=<%= pod.getPodcastId() %>">
+			        <div class="podcast-image" style="background-image: url('images/podcasts/<%= pod.getPodImg() %>');"></div>
+			        <div class="podcast-info">
+			            <h3><%= pod.getPodcastName() %></h3>
+			            <p><%= pod.getHostName() %></p>
+			        </div>
+			    </a>
+			</div>
 		    <% } %>
 		</div>
     </div>

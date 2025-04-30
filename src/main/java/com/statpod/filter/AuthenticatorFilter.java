@@ -25,7 +25,7 @@ public class AuthenticatorFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        publicResources = new HashSet<>(Arrays.asList(HOME, ROOT, "/aboutus.jsp", "/contact.jsp", "/profile.jsp"));
+        publicResources = new HashSet<>(Arrays.asList(HOME, ROOT, "/aboutus.jsp", "/contact.jsp", "/profile.jsp", "/podcast"));
         loginRegisterPages = new HashSet<>(Arrays.asList(LOGIN, REGISTER));
     }
 
@@ -33,9 +33,8 @@ public class AuthenticatorFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+    	HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
         String uri = request.getRequestURI();
         String contextPath = request.getContextPath();
         String relativeUri = uri.substring(contextPath.length());
@@ -54,6 +53,7 @@ public class AuthenticatorFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+
 
         // Redirect logged-in users away from login/register
         if (loginRegisterPages.contains(relativeUri)) {

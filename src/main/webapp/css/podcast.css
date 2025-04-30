@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+:root {
+    --primary-color: #a259ff;
+    --dark-bg: #1c1c1e;
+    --card-bg: #2c2c2e;
+    --text-light: #f2f2f7;
+    --text-muted: #a1a1aa;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.podcast-hero {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+}
+
+.podcast-cover {
+    width: 240px; /* Fixed width */
+   height: 240px; /* Fixed height */
+   object-fit: cover; /* Ensures the image fills the dimensions without distortion */
+   object-position: center; /* centers the image within its container */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.podcast-details {
+    flex: 1;
+}
+
+.podcast-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.podcast-host {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.podcast-meta {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.genre-badge {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+}
+
+.podcast-date {
+    font-size: 0.85rem;
+}
+
+.podcast-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #d4d4d8;
+}
+
+.action-buttons .play-button {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-buttons .play-button:hover {
+    background-color: #9333ea;
+    transform: scale(1.05);
+}
+
+.try-button {
+    border: 1px solid white;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    margin-left: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.try-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .podcast-hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .podcast-cover {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 1rem;
+    }
+
+    .podcast-title {
+        font-size: 2rem;
+    }
+}

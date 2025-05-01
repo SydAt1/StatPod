@@ -233,6 +233,22 @@ body {
     margin-top: 30px;
 }
 
+/* Recommendations Section */
+.recommendations {
+    margin-top: 50px;
+}
+
+.podcast-grid a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.podcast-grid a:hover {
+    text-decoration: none;
+    color: #10b981; /* Optional: color on hover */
+}
+
 .podcast-card {
     display: flex;
     flex-direction: column;

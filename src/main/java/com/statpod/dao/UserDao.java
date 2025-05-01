@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.statpod.model.PodcastUserModel;
 
@@ -59,6 +61,24 @@ public class UserDao {
         return null; // No user found
     }
     
+    public List<PodcastUserModel> getAllUsers() throws SQLException {
+        List<PodcastUserModel> userList = new ArrayList<>();
+        String query = "SELECT Username, DisplayName, Email_ID, ImageUrl, FavoriteGenre FROM Users";
+        try (PreparedStatement pstmt = connection.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                PodcastUserModel user = new PodcastUserModel();
+                user.setUsername(rs.getString("Username"));
+                user.setDisplayName(rs.getString("DisplayName"));
+                user.setEmail(rs.getString("Email_ID"));
+                user.setImageUrl(rs.getString("ImageUrl"));
+                user.setFavoriteGenre(rs.getInt("FavoriteGenre"));
+                userList.add(user);
+            }
+        }
+        return userList;
+    }
+    
     public void updateUserProfileWithImage(String username, String displayName, String email, int favoriteGenreId, String imageUrl) throws SQLException {
         String sql = "UPDATE Users SET DisplayName = ?, email = ?, FavoriteGenre = ?, ImageUrl = ? WHERE username = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -70,5 +90,12 @@ public class UserDao {
             stmt.executeUpdate();
         }
     }
-
+    
+    public void deleteUser(String username) throws SQLException {
+        String query = "DELETE FROM Users WHERE Username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+        }
+    }
 }

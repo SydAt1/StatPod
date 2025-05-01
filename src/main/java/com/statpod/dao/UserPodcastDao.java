@@ -131,4 +131,16 @@ public class UserPodcastDao {
         }
         return likedPodcasts;
     }
+    
+    /**
+     * Deletes a user-podcast relationship
+     */
+    public void deleteUserPodcast(String username, int podcastId) throws SQLException {
+        String query = "DELETE FROM UserPodcasts WHERE Username = ? AND PodcastID = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, username);
+            pstmt.setInt(2, podcastId);
+            pstmt.executeUpdate();
+        }
+    }
 }

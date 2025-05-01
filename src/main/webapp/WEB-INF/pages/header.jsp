@@ -78,6 +78,8 @@ if (loggedIn) {
             <a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</a>
             <a href="${pageContext.request.contextPath}/admin/managePodcast"><i class="fas fa-podcast"></i> Manage Podcast</a>
             <a href="${pageContext.request.contextPath}/admin/new_podcast"><i class="fas fa-podcast"></i> Add New Podcast</a>
+            <a href="${pageContext.request.contextPath}/admin/manage_users"><i class="fas fa-users-cog"></i> Manage Users</a>
+            
 	<%
         }
 	%>

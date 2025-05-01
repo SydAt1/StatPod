@@ -25,7 +25,7 @@ public class AuthenticatorFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        publicResources = new HashSet<>(Arrays.asList(HOME, ROOT, "/aboutus.jsp", "/contact.jsp", "/profile.jsp", "/podcast"));
+        publicResources = new HashSet<>(Arrays.asList(HOME, ROOT, "/aboutus.jsp", "/contact.jsp", "/profile.jsp", "/podcast", "/manageusers"));
         loginRegisterPages = new HashSet<>(Arrays.asList(LOGIN, REGISTER));
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 import com.statpod.model.GenreModel;
 import com.statpod.model.PodcastModel;
 import com.statpod.service.GenreService;
-import com.statpod.service.PodcastService;
+import com.statpod.dao.PodcastDao;
 import com.statpod.util.ImageUtil;
 import com.statpod.util.SessionUtil;
 import com.statpod.util.ValidationUtil;
@@ -27,7 +27,7 @@ public class AddPodcastController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final ImageUtil imageUtil = new ImageUtil();
-    private final PodcastService podcastService = new PodcastService();
+    private final PodcastDao podcastService = new PodcastDao();
     private final GenreService genreService = new GenreService();
 
     @Override
@@ -76,7 +76,7 @@ public class AddPodcastController extends HttpServlet {
             if (isAdded == null) {
                 handleError(req, resp, "Our server is under maintenance. Please try again later!");
             } else if (isAdded) {
-                handleSuccess(req, resp, "Podcast successfully added!", "/WEB-INF/pages/new_podcast.jsp");
+                handleSuccess(req, resp, "Podcast successfully added!", "/WEB-INF/pages/home.jsp");
             } else {
                 handleError(req, resp, "Could not add the podcast. Please try again later!");
             }

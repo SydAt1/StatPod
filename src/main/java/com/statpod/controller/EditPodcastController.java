@@ -9,7 +9,6 @@ import com.statpod.dao.PodcastDao;
 import com.statpod.model.GenreModel;
 import com.statpod.model.PodcastModel;
 import com.statpod.service.GenreService;
-import com.statpod.service.PodcastService;
 import com.statpod.util.ImageUtil;
 import com.statpod.util.SessionUtil;
 import com.statpod.util.ValidationUtil;
@@ -30,7 +29,7 @@ public class EditPodcastController extends HttpServlet {
 
     private final ImageUtil imageUtil = new ImageUtil();
     private final PodcastDao podcastDao = new PodcastDao();
-    private final PodcastService podcastService = new PodcastService();
+//    private final PodcastService podcastService = new PodcastService();
     private final GenreService genreService = new GenreService();
 
     @Override
@@ -157,7 +156,7 @@ public class EditPodcastController extends HttpServlet {
                 // Use the DAO directly for checking existence if needed, or the service
                 // if that's the intended layer for such logic.
                 // Assuming PodcastService.genreExists is still valid.
-                if (!podcastService.genreExists(genreId)) {
+                if (!podcastDao.genreExists(genreId)) {
                     return "Selected genre does not exist.";
                 }
             } catch (NumberFormatException e) {

@@ -254,4 +254,44 @@ public class PodcastDao {
         
         return podcast;
     }
+    
+    // Add a new podcast to the database
+    public Boolean addPodcast(PodcastModel podcastModel) throws SQLException, ClassNotFoundException {
+        String insertQuery = "INSERT INTO Podcasts (Podcast_Name, HostName, ReleaseDate, GenreID, Description, PodImg) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DbConfig.getDbConnection();
+             PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+
+            insertStmt.setString(1, podcastModel.getPodcastName());
+            insertStmt.setString(2, podcastModel.getHostName());
+            insertStmt.setTimestamp(3, new Timestamp(podcastModel.getReleaseDate().getTime()));
+            insertStmt.setInt(4, podcastModel.getGenreId());
+            insertStmt.setString(5, podcastModel.getDescription());
+            insertStmt.setString(6, podcastModel.getPodImg());
+
+            return insertStmt.executeUpdate() > 0;
+        }
+    }
+
+    // Update an existing podcast
+
+
+ // Check if a genre exists
+    public boolean genreExists(int genreId) {
+        String query = "SELECT GenreID FROM Genres WHERE GenreID = ?";
+
+        try (Connection conn = DbConfig.getDbConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, genreId);
+            try (ResultSet result = stmt.executeQuery()) {
+                return result.next();  // Returns true if the result set has any row (i.e., genre exists)
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Optional: log error using a logger instead of printing
+            return false; // Or handle based on what "not found" should mean in your context
+        }
+    }
 }

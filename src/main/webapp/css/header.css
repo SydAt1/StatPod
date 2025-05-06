@@ -1,180 +1,246 @@
 /* Navbar container */
 .navbar {
-    background-color: rgb(16, 21, 30);
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    flex-wrap: wrap;
+background-color: rgb(16, 21, 30);
+padding: 15px 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+color: white;
+flex-wrap: wrap;
 }
 
 /* Logo area */
 .logo-link {
-    text-decoration: none;
-    color: inherit;
+text-decoration: none;
+color: inherit;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
+display: flex;
+align-items: center;
+gap: 10px;
+cursor: pointer;
+transition: opacity 0.3s ease;
 }
 
 .logo-container:hover {
-    opacity: 0.8;
+opacity: 0.8;
 }
 
 .logo-img {
-    height: 40px;
-    width: auto;
+height: 40px;
+width: auto;
 }
 
 /* Navigation links */
 nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+display: flex;
+align-items: center;
+gap: 20px;
+flex-wrap: wrap;
 }
 
 nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    padding: 5px 0;
+color: white;
+text-decoration: none;
+font-weight: 500;
+transition: color 0.3s ease;
+padding: 5px 0;
 }
 
 nav a:hover {
-    color: #4a90e2;
+color: #4a90e2;
 }
 
 /* Login button */
 .login-btn {
-    background-color: #4a90e2;
-    color: white !important;
-    padding: 8px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    margin-left: 10px;
-    white-space: nowrap;
+background-color: #4a90e2;
+color: white !important;
+padding: 8px 16px;
+border-radius: 4px;
+text-decoration: none;
+transition: background-color 0.3s;
+margin-left: 10px;
+white-space: nowrap;
 }
 
 .login-btn:hover {
-    background-color: #3570b8;
+background-color: #3570b8;
 }
 
 /* User dropdown */
 .user-dropdown {
-    position: relative;
-    display: inline-block;
-    margin-left: 15px;
+position: relative;
+display: inline-block;
+margin-left: 15px;
 }
 
 /* Pill-shaped dropdown toggle */
 .dropdown-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    background-color: #2e2e2e;
-    border-radius: 9999px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 6px 12px;
+background-color: #2e2e2e;
+border-radius: 9999px;
+cursor: pointer;
+transition: background-color 0.3s ease;
 }
 
 .dropdown-toggle:hover {
-    background-color: #3a3a3a;
+background-color: #3a3a3a;
 }
 
 /* User icon inside the pill */
 .profile-pic-container {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+width: 24px;
+height: 24px;
+border-radius: 50%;
+background-color: white;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .profile-pic-container i {
-    color: #2e2e2e;
-    font-size: 14px;
+color: #2e2e2e;
+font-size: 14px;
 }
 
 /* Chevron icon */
 .fa-chevron-down {
-    color: white;
-    font-size: 12px;
-    transition: transform 0.3s ease;
+color: white;
+font-size: 12px;
+transition: transform 0.3s ease;
 }
 
 /* Rotate chevron when open */
 .user-dropdown.open .fa-chevron-down {
-    transform: rotate(180deg);
+transform: rotate(180deg);
 }
 
 /* Dropdown content styling */
 .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    margin-top: 8px;
-    background-color: rgb(25, 30, 40);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    border-radius: 4px;
-    animation: fadeIn 0.2s ease forwards;
+display: none;
+position: absolute;
+right: 0;
+top: 100%;
+margin-top: 8px;
+background-color: rgb(25, 30, 40);
+min-width: 160px;
+box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+z-index: 1000;
+border-radius: 4px;
+animation: fadeIn 0.2s ease forwards;
 }
 
 .user-dropdown.open .dropdown-content {
-    display: block;
+display: block;
 }
 
 /* Dropdown menu items */
 .dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background-color 0.3s, color 0.3s;
+color: white;
+padding: 12px 16px;
+text-decoration: none;
+display: flex;
+align-items: center;
+gap: 8px;
+transition: background-color 0.3s, color 0.3s;
 }
 
 .dropdown-content a:hover {
-    background-color: rgba(74, 144, 226, 0.2);
-    color: #4a90e2;
+background-color: rgba(74, 144, 226, 0.2);
+color: #4a90e2;
 }
 
 .dropdown-content a i {
-    width: 16px;
-    text-align: center;
+width: 16px;
+text-align: center;
 }
 
 /* Username link in dropdown */
 .username-link {
-    font-weight: 500;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+font-weight: 500;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Fade-in animation for dropdown */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+from {
+opacity: 0;
+transform: translateY(-10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
 }
 
+/* Netflix-style Search Component */
+.search-container {
+position: relative;
+display: flex;
+align-items: center;
+}
 
+.search-button {
+background: transparent;
+border: none;
+color: white;
+font-size: 18px;
+cursor: pointer;
+padding: 5px;
+transition: color 0.3s ease;
+}
+
+.search-button:hover {
+color: #4a90e2;
+}
+
+.search-input-container {
+position: absolute;
+right: 0;
+top: 0;
+display: flex;
+align-items: center;
+background-color: rgb(25, 30, 40);
+border: 1px solid #333;
+border-radius: 4px;
+overflow: hidden;
+width: 0;
+opacity: 0;
+transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.search-input-container.active {
+width: 240px;
+opacity: 1;
+}
+
+.search-input {
+width: 100%;
+padding: 8px 12px;
+border: none;
+background-color: transparent;
+color: white;
+font-size: 14px;
+outline: none;
+}
+
+.search-input::placeholder {
+color: #999;
+}
+
+.search-close-button {
+background: transparent;
+border: none;
+color: #999;
+padding: 8px;
+cursor: pointer;
+transition: color 0.3s ease;
+}
+
+.search-close-button:hover {
+color: #4a90e2;
+}

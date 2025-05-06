@@ -60,6 +60,46 @@ public class PodcastDao {
         }
         return podcasts;
     }
+    
+    /**
+     * Searches for podcasts by podcast name or host name
+     * @param query The search term to look for in podcast names and host names
+     * @return List of PodcastModel objects matching the search criteria
+     * @throws SQLException If a database access error occurs
+     * @throws ClassNotFoundException If the database driver class is not found
+     */
+    public List<PodcastModel> searchPodcasts(String query) throws SQLException, ClassNotFoundException {
+        List<PodcastModel> podcasts = new ArrayList<>();
+        String sql = "SELECT PodcastID, Podcast_Name, HostName, ReleaseDate, GenreID, PodImg, Description " +
+                     "FROM podcasts " +
+                     "WHERE Podcast_Name LIKE ? OR HostName LIKE ? " +
+                     "ORDER BY ReleaseDate DESC";
+                     
+        try (Connection conn = DbConfig.getDbConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             
+            // Add wildcards for partial matching
+            String searchPattern = "%" + query + "%";
+            stmt.setString(1, searchPattern);
+            stmt.setString(2, searchPattern);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    PodcastModel podcast = new PodcastModel(
+                            rs.getInt("PodcastID"),
+                            rs.getString("Podcast_Name"),
+                            rs.getString("HostName"),
+                            rs.getDate("ReleaseDate"),
+                            rs.getInt("GenreID"),
+                            rs.getString("PodImg"),
+                            rs.getString("Description")
+                    );
+                    podcasts.add(podcast);
+                }
+            }
+        }
+        return podcasts;
+    }
 
     public String getGenreName(int genreId) throws SQLException, ClassNotFoundException {
         String genreName = null;

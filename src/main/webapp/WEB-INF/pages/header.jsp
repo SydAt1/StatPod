@@ -39,6 +39,27 @@
   background-color: rgba(74, 144, 226, 0.2);
   color: #4a90e2;
 }
+
+/* Inline critical styles for search functionality */
+.search-input-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  background-color: rgb(25, 30, 40);
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.search-input-container.active {
+  width: 240px;
+  opacity: 1;
+}
 </style>
 
 <body>
@@ -51,6 +72,19 @@
 </a>
 
 <nav>
+<!-- Netflix-style Search Component -->
+<div class="search-container">
+    <button type="button" class="search-button" id="searchButton">
+        <i class="fas fa-search"></i>
+    </button>
+    <div class="search-input-container" id="searchInputContainer">
+        <input type="text" class="search-input" placeholder="Search..." id="searchInput">
+        <button type="button" class="search-close-button" id="searchCloseButton">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+
 <a href="${pageContext.request.contextPath}/about-us">About</a>
 <a href="${pageContext.request.contextPath}/contact">Contact</a>
 
@@ -124,6 +158,54 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Netflix-style search functionality
+    const searchButton = document.getElementById('searchButton');
+    const searchInputContainer = document.getElementById('searchInputContainer');
+    const searchInput = document.getElementById('searchInput');
+    const searchCloseButton = document.getElementById('searchCloseButton');
+    
+    // Stop event propagation in search container
+    searchInputContainer.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    
+    // Open search field when search button is clicked
+    searchButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Stop event from bubbling up
+        searchInputContainer.classList.add('active');
+        setTimeout(() => {
+            searchInput.focus(); // Auto focus with slight delay to ensure animation completes
+        }, 300);
+    });
+    
+    // Close search field when close button is clicked
+    searchCloseButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Stop event from bubbling up
+        searchInputContainer.classList.remove('active');
+        searchInput.value = ''; // Clear the input when closed
+    });
+    
+    // Handle search submission
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            // Implement search functionality here
+            // For example:
+            if (searchInput.value.trim() !== '') {
+                window.location.href = '${pageContext.request.contextPath}/search?q=' + encodeURIComponent(searchInput.value);
+            }
+        }
+    });
+    
+    // Close search when clicking elsewhere on the page
+    document.addEventListener('click', function(e) {
+        if (!searchInputContainer.contains(e.target) && e.target !== searchButton) {
+            searchInputContainer.classList.remove('active');
+        }
+    });
 });
 </script>
 </body>

@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.statpod.model.GenreModel;
 import com.statpod.model.PodcastModel;
-import com.statpod.service.GenreService;
+import com.statpod.dao.GenreDao;
 import com.statpod.dao.PodcastDao;
 import com.statpod.util.ImageUtil;
 import com.statpod.util.SessionUtil;
@@ -28,7 +28,7 @@ public class AddPodcastController extends HttpServlet {
 
     private final ImageUtil imageUtil = new ImageUtil();
     private final PodcastDao podcastService = new PodcastDao();
-    private final GenreService genreService = new GenreService();
+    private final GenreDao genreService = new GenreDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {    	

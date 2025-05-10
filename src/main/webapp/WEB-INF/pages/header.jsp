@@ -106,6 +106,9 @@ if (loggedIn) {
         <a href="${pageContext.request.contextPath}/profile" class="username-link">
             <i class="fas fa-user-circle"></i> <%= username %>
         </a>
+        <a href="${pageContext.request.contextPath}/podstats" class="userstats-button">
+		  <i class="fas fa-chart-bar"></i> User Stats
+		</a>
 	<%
         if (isAdmin != null && isAdmin) { // Check isAdmin attribute
 	%>
@@ -117,9 +120,11 @@ if (loggedIn) {
 	<%
         }
 	%>
-        <a href="${pageContext.request.contextPath}/logout">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
+        <form action="${pageContext.request.contextPath}/logout" method="post">
+		    <button type="submit">
+		        <i class="fas fa-sign-out-alt"></i> Logout
+		    </button>
+		</form>
     </div>
 	</div>
 		<%

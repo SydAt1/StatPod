@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import com.statpod.model.PodcastUserModel;
 import com.statpod.service.RegisterService;
+import com.statpod.dao.GenreDao;
 import com.statpod.model.GenreModel;
-import com.statpod.service.GenreService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -29,7 +29,7 @@ public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final RegisterService registerService = new RegisterService();
-    private final GenreService genreService = new GenreService();
+    private final GenreDao genreService = new GenreDao();
 
     /**
      * Handles GET requests to display the registration form.

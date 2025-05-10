@@ -44,10 +44,10 @@ public class SearchController extends HttpServlet {
             request.setAttribute("currentUser", currentUser);
             boolean isAdmin = SessionUtil.isAdminUser(request);
             request.setAttribute("isAdmin", isAdmin);
-            System.out.println("✅ User is logged in: " + currentUser + " (Admin: " + isAdmin + ")");
+            System.out.println("User is logged in: " + currentUser + " (Admin: " + isAdmin + ")");
         } else {
             request.setAttribute("isLoggedIn", false);
-            System.out.println("ℹ️ User is not logged in");
+            System.out.println("User is not logged in");
         }
         
         try {

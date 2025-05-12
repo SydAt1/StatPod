@@ -127,10 +127,9 @@
             <div class="quick-actions">
                 <h2>Quick Actions</h2>
                 <div class="action-buttons">
-                    <a href="add_podcast.jsp" class="action-btn"><i class="fas fa-plus"></i> Add New Podcast</a>
-                    <a href="add_user.jsp" class="action-btn"><i class="fas fa-user-plus"></i> Add New User</a>
+                    <a href="${pageContext.request.contextPath}/admin/new_podcast" class="action-btn"><i class="fas fa-plus"></i> Add New Podcast</a>
+                    <a href="${pageContext.request.contextPath}/admin/manage_users" class="action-btn"><i class="fas fa-users-cog"></i> Add New User</a>
                     <a href="add_genre.jsp" class="action-btn"><i class="fas fa-folder-plus"></i> Add New Genre</a>
-                    <a href="generate_report.jsp" class="action-btn"><i class="fas fa-file-export"></i> Generate Report</a>
                 </div>
             </div>
         </div>

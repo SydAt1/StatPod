@@ -31,11 +31,11 @@ public class SearchController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("✅ SearchController is running...");
+        System.out.println("SearchController is running...");
         
         // Get search query parameter
         String query = request.getParameter("q");
-        System.out.println("🔍 Search query: " + query);
+        System.out.println("Search query: " + query);
         
         // Check if user is logged in and set request attributes accordingly
         if (SessionUtil.isLoggedIn(request)) {

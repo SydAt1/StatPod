@@ -10,6 +10,7 @@
 
     GenreModel favoriteGenre = (GenreModel) request.getAttribute("favoriteGenre");
     String genreName = (favoriteGenre != null) ? favoriteGenre.getGenreName() : "Not specified";
+    String decryptedPassword = (String) request.getAttribute("decryptedPassword");
 %>
 <!DOCTYPE html>
 <html>
@@ -39,6 +40,13 @@
             border: none;
             text-decoration: underline;
         }
+        .password-toggle {
+            cursor: pointer;
+            color: #5865f2;
+            margin-left: 10px;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -53,12 +61,12 @@
         <div class="profile-user-info">
             <div class="profile-picture">
                 <%
-				    String userImage = (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) 
-				                        ? user.getImageUrl() 
-				                        : "default-profile.png"; // fallback default image
-				%>
+                    String userImage = (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) 
+                                        ? user.getImageUrl() 
+                                        : "default-profile.png"; // fallback default image
+                %>
 
-				<img id="profileImage" src="<%= request.getContextPath() + "/images/users/" + userImage %>" alt="Profile Picture" style="max-width: 150px; border-radius: 50%;">
+                <img id="profileImage" src="<%= request.getContextPath() + "/images/users/" + userImage %>" alt="Profile Picture" style="max-width: 150px; border-radius: 50%;">
             </div>
 
             <!-- Button to trigger file input -->
@@ -80,6 +88,16 @@
                 <div>
                     <div class="detail-label">Email</div>
                     <input class="detail-value-input" type="email" name="email" value="<%= user.getEmail() %>">
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div>
+                    <div class="detail-label">Password</div>
+                    <div style="display: flex; align-items: center;">
+                        <input class="detail-value-input" type="password" id="passwordInput" name="password" value="<%= decryptedPassword != null ? decryptedPassword : "" %>">
+                        <span class="password-toggle" onclick="togglePassword()">Show</span>
+                    </div>
                 </div>
             </div>
 
@@ -110,6 +128,19 @@
             output.src = reader.result;
         };
         reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // Toggle password visibility
+    function togglePassword() {
+        const passwordInput = document.getElementById('passwordInput');
+        const toggleText = document.querySelector('.password-toggle');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleText.textContent = 'Hide';
+        } else {
+            passwordInput.type = 'password';
+            toggleText.textContent = 'Show';
+        }
     }
 </script>
 

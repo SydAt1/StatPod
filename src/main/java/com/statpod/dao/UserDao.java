@@ -98,4 +98,17 @@ public class UserDao {
             pstmt.executeUpdate();
         }
     }
+    
+    public void editUserProfile(String username, String displayName, String email, int favoriteGenreId, String imageUrl, String password) throws SQLException {
+        String sql = "UPDATE Users SET DisplayName = ?, Email_ID = ?, FavoriteGenre = ?, ImageUrl = ?, Password = ? WHERE Username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, displayName);
+            stmt.setString(2, email);
+            stmt.setInt(3, favoriteGenreId);
+            stmt.setString(4, imageUrl);
+            stmt.setString(5, password);
+            stmt.setString(6, username);
+            stmt.executeUpdate();
+        }
+    }
 }

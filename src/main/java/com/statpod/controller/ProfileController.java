@@ -6,6 +6,7 @@ import com.statpod.dao.UserDao;
 import com.statpod.model.GenreModel;
 import com.statpod.model.PodcastUserModel;
 import com.statpod.util.ImageUtil;
+import com.statpod.util.PasswordUtil;
 import com.statpod.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
@@ -23,8 +24,8 @@ import java.sql.SQLException;
 @WebServlet(urlPatterns = {"/profile"})
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-    maxFileSize = 1024 * 1024 * 10,       // 10MB
-    maxRequestSize = 1024 * 1024 * 50     // 50MB
+    maxFileSize = 1024 * 1024 * 10,     // 10MB
+    maxRequestSize = 1024 * 1024 * 50   // 50MB
 )
 public class ProfileController extends HttpServlet {
 
@@ -50,9 +51,11 @@ public class ProfileController extends HttpServlet {
             }
 
             GenreModel favoriteGenre = genreDao.getGenreById(user.getFavoriteGenre());
+            String decryptedPassword = PasswordUtil.decrypt(user.getPassword(), username);
 
             request.setAttribute("user", user);
             request.setAttribute("favoriteGenre", favoriteGenre);
+            request.setAttribute("decryptedPassword", decryptedPassword != null ? decryptedPassword : "");
             request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -71,6 +74,7 @@ public class ProfileController extends HttpServlet {
         String username = SessionUtil.getCurrentUser(request);
         String displayName = request.getParameter("displayName");
         String email = request.getParameter("email");
+        String password = request.getParameter("password");
         String favoriteGenreName = request.getParameter("favoriteGenre");
 
         try (Connection conn = DbConfig.getDbConnection()) {
@@ -85,7 +89,7 @@ public class ProfileController extends HttpServlet {
 
             int genreId = genreDao.fetchGenreIdByName(favoriteGenreName);
             if (genreId == -1) {
-                genreId = existingUser.getFavoriteGenre(); // fallback to old genre
+                genreId = existingUser.getFavoriteGenre(); // Fallback to existing genre
             }
 
             Part imagePart = request.getPart("imageUrl");
@@ -104,8 +108,21 @@ public class ProfileController extends HttpServlet {
                 }
             }
 
+            // Handle password update
+            String encryptedPassword = existingUser.getPassword(); // Default to existing password
+            if (password != null && !password.isEmpty()) {
+                String decryptedExistingPassword = PasswordUtil.decrypt(existingUser.getPassword(), username);
+                if (decryptedExistingPassword == null || !password.equals(decryptedExistingPassword)) {
+                    encryptedPassword = PasswordUtil.encrypt(username, password);
+                    if (encryptedPassword == null) {
+                        response.sendRedirect(request.getContextPath() + "/error");
+                        return;
+                    }
+                }
+            }
+
             // Update user
-            userDao.updateUserProfile(username, displayName, email, genreId, imageUrl);
+            userDao.editUserProfile(username, displayName, email, genreId, imageUrl, encryptedPassword);
 
             response.sendRedirect(request.getContextPath() + "/profile");
 

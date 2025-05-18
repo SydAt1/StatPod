@@ -129,7 +129,7 @@
                 <div class="action-buttons">
                     <a href="${pageContext.request.contextPath}/admin/new_podcast" class="action-btn"><i class="fas fa-plus"></i> Add New Podcast</a>
                     <a href="${pageContext.request.contextPath}/admin/manage_users" class="action-btn"><i class="fas fa-users-cog"></i> Add New User</a>
-                    <a href="add_genre.jsp" class="action-btn"><i class="fas fa-folder-plus"></i> Add New Genre</a>
+                    <a href="${pageContext.request.contextPath}/admin/managePodcast" class="action-btn"><i class="fas fa-folder-plus"></i> Manage Podcasts</a>
                 </div>
             </div>
         </div>

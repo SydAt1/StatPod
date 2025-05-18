@@ -32,11 +32,11 @@
 	                    </div>
 	                <div class="form-group terms">
 	                    <input type="checkbox" id="terms" name="terms" required>
-	                    <label for="terms">I hereby agree to our <a href="/privacy-policy" target="_blank">Privacy Policy terms</a>.</label>
+	                    <label for="terms">I hereby agree to our <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Privacy Policy terms</a>.</label>
 	                </div>
-	                <button type="submit" class="submit-button">
-	                    Submit Form &rarr;
-	                    </button>
+	                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="submit-button">
+					    Submit Form &rarr;
+					</a>
 	            </form>
 	        </div>
 	    </div>

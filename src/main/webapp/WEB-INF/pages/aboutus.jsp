@@ -15,7 +15,6 @@
         <p>We are you one stop solution for all your podcast needs</p>
         
         <img src="${pageContext.request.contextPath}/images/about-us/mascots/mascot.png" alt="Floating egg" class="floating-egg">
-        <img src="/api/placeholder/100/100" alt="Floating coin" class="floating-coin">
     </section>
     
     <section class="timeline">
@@ -123,9 +122,7 @@
         <p>Over 200 million people use our platform to talk, hang out, and create together. Whether you're part of a school club, gaming group, worldwide art community, or just a handful of friends that want to spend time together, we make it easy to talk every day and hang out more often.</p>
         
         <a href="#" class="cta-button">Join Now</a>
-        
-        <img src="/api/placeholder/150/150" alt="Floating crown" class="floating-crown">
-        <img src="/api/placeholder/800/400" alt="Devices mockup" class="devices-mockup">
+
     </section>
     <%@ include file="footer.jsp" %>
     
